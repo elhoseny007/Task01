@@ -1,8 +1,7 @@
-plotly.graph_objects
-from plotly.subplots import make_subplots
+make_subplots
 streamlit
-plotly.express
+plotly
 numpy 
 pandas 
 seaborn 
-matplotlib.pyplot 
+matplotlib

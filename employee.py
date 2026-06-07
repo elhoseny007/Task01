@@ -403,7 +403,6 @@ with tab2:
             df_temp['Job_Sat_Num'] = df_temp['Job Satisfaction'].map(satisfaction_map)
         else:
             df_temp['Job_Sat_Num'] = df_temp['Job Satisfaction']
-            s
         job_sat = df_temp.groupby('Job Role')['Job_Sat_Num'].mean().reset_index()
         merged_data = pd.merge(job_attr, job_sat, on='Job Role')
 

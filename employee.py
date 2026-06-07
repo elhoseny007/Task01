@@ -395,29 +395,82 @@ with tab2:
     col3, col4 = st.columns(2)
     
     with col3:
-        job_attr = cleaned_df.groupby('Job Role')['Attrition'].value_counts().unstack(fill_value=0).reset_index()
-        satisfaction_map = {'Very Low': 1, 'Low': 2, 'Medium': 3, 'High': 4}
-        df_temp = cleaned_df.copy()
-        
-        if df_temp['Job Satisfaction'].dtype == 'object':
-            df_temp['Job_Sat_Num'] = df_temp['Job Satisfaction'].map(satisfaction_map)
-        else:
-            df_temp['Job_Sat_Num'] = df_temp['Job Satisfaction']
-        job_sat = df_temp.groupby('Job Role')['Job_Sat_Num'].mean().reset_index()
-        merged_data = pd.merge(job_attr, job_sat, on='Job Role')
+    job_attr = (
+        cleaned_df.groupby('Job Role')['Attrition']
+        .value_counts()
+        .unstack(fill_value=0)
+        .reset_index()
+    )
 
-        fig7 = make_subplots(specs=[[{"secondary_y": True}]])
-        if 'Stayed' in merged_data.columns:
-            fig7.add_trace(go.Bar(x=merged_data['Job Role'], y=merged_data['Stayed'], name="Stayed", marker_color='#38bdf8'), secondary_y=False)
-        if 'Left' in merged_data.columns:
-            fig7.add_trace(go.Bar(x=merged_data['Job Role'], y=merged_data['Left'], name="Left", marker_color='#f87171'), secondary_y=False)
+    satisfaction_map = {
+        'Very Low': 1,
+        'Low': 2,
+        'Medium': 3,
+        'High': 4
+    }
 
-        fig7.add_trace(go.Scatter(x=merged_data['Job Role'], y=merged_data['Job_Sat_Num'], name="Avg Job Satisfaction", mode="lines+markers", line=dict(color="#fbbf24", width=3, shape='spline'), marker=dict(size=8, symbol='circle')), secondary_y=True)
-        fig7 = apply_modern_layout(fig7)
-        fig7.update_layout(title_text='Q1 · Attrition Breakdown & Avg Job Satisfaction by Job Role', barmode='group')
-        fig7.update_yaxes(title_text="Employee Count", secondary_y=False)
-        fig7.update_yaxes(title_text="Satisfaction Score (1-4)", secondary_y=True, range=[1, 4], showgrid=False)
-        st.plotly_chart(fig7, use_container_width=True)
+    df_temp = cleaned_df.copy()
+
+    df_temp['Job_Sat_Num'] = pd.to_numeric(
+        df_temp['Job Satisfaction'].map(satisfaction_map),
+        errors='coerce'
+    )
+
+    job_sat = (
+        df_temp.groupby('Job Role')['Job_Sat_Num']
+        .mean()
+        .reset_index()
+    )
+
+    merged_data = pd.merge(
+        job_attr,
+        job_sat,
+        on='Job Role',
+        how='left'
+    )
+
+    fig7 = make_subplots(specs=[[{"secondary_y": True}]])
+
+    if 'Stayed' in merged_data.columns:
+        fig7.add_trace(
+            go.Bar(
+                x=merged_data['Job Role'],
+                y=merged_data['Stayed'],
+                name="Stayed",
+                marker_color='#38bdf8'
+            ),
+            secondary_y=False
+        )
+
+    if 'Left' in merged_data.columns:
+        fig7.add_trace(
+            go.Bar(
+                x=merged_data['Job Role'],
+                y=merged_data['Left'],
+                name="Left",
+                marker_color='#f87171'
+            ),
+            secondary_y=False
+        )
+
+    fig7.add_trace(
+        go.Scatter(
+            x=merged_data['Job Role'],
+            y=merged_data['Job_Sat_Num'],
+            name="Avg Job Satisfaction",
+            mode="lines+markers"
+        ),
+        secondary_y=True
+    )
+
+    fig7 = apply_modern_layout(fig7)
+
+    fig7.update_layout(
+        title_text='Q1 · Attrition Breakdown & Avg Job Satisfaction by Job Role',
+        barmode='group'
+    )
+
+    st.plotly_chart(fig7, use_container_width=True)
         
     with col4:
         remote_attr = cleaned_df.groupby('Remote Work')['Attrition'].value_counts().unstack(fill_value=0).reset_index()

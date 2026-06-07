@@ -237,7 +237,7 @@ kpi_html = f"""
 </div>
 """
 
-st.markdown("### Quick Stats")
+st.markdown("### KPI")
 st.markdown(kpi_html, unsafe_allow_html=True)
 
 # ====================== NAVIGATION ======================

@@ -123,8 +123,8 @@ with col_title:
 # ====================== DATA LOADING ======================
 @st.cache_data
 def load_data():
-    train = pd.read_csv(r'C:/Users/ELZAHBIA/AppData/Local/Temp/Rar$DRa8636.730/train.csv')
-    test = pd.read_csv(r'C:/Users/ELZAHBIA/AppData/Local/Temp/Rar$DRa8636.3767/test.csv')
+    train = pd.read_csv(r'train.csv')
+    test = pd.read_csv(r'test.csv')
     df_full = pd.concat([train, test], ignore_index=True)
     
     df_full.rename(columns={'Employee ID': 'Employee_ID','Years at Company':'Years_at_Company'}, inplace=True)

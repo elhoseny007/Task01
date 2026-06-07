@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # 1. يجب أن يكون هذا أول أمر لـ Streamlit دائماً
 st.set_page_config(
-    page_title="Kayfa-Workforce Insights",
+    page_title="Employee Attention Analytics",
     layout="wide",
     page_icon="👥"
 )
@@ -117,8 +117,8 @@ with col_logo:
     st.image(r"Kayfa_logo.png", width=180)
 
 with col_title:
-    st.markdown('<h1 class="gradient-title">Kayfa Workforce Insights</h1>', unsafe_allow_html=True)
-    st.markdown("<p style='color:#bae6fd; margin:0;'>kayfa Analytics - Internship Program</p>", unsafe_allow_html=True)
+    st.markdown('<h1 class="gradient-title">Employee Attention Analytics</h1>', unsafe_allow_html=True)
+    st.markdown("<p style='color:#bae6fd; margin:0;'>First week kayfa Analytics - Internship Program</p>", unsafe_allow_html=True)
 
 # ====================== DATA LOADING ======================
 @st.cache_data

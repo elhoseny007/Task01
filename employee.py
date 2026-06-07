@@ -114,7 +114,7 @@ st.markdown("""
 col_logo, col_title = st.columns([1, 4])
 
 with col_logo:
-    st.image(r"C:\Users\ELZAHBIA\Vs_code\Kayfa_logo.png", width=180)
+    st.image(r"Kayfa_logo.png", width=180)
 
 with col_title:
     st.markdown('<h1 class="gradient-title">Kayfa Workforce Insights</h1>', unsafe_allow_html=True)
@@ -242,13 +242,11 @@ st.markdown(kpi_html, unsafe_allow_html=True)
 
 # ====================== NAVIGATION ======================
 page2 = st.Page(
-    r"C:\Users\ELZAHBIA\Vs_code\.vscode\data_analysis\compensation.py",
     title="Role & Compensation",
     icon="💰"
 )
 
 page3 = st.Page(
-    r"C:\Users\ELZAHBIA\Vs_code\.vscode\data_analysis\profiles.py",
     title="Personal Profiles",
     icon="👤"
 )
@@ -256,7 +254,7 @@ page3 = st.Page(
 pg = st.navigation([page2, page3])
 
 with st.sidebar:
-    st.image(r"C:\Users\ELZAHBIA\Vs_code\Kayfa_logo.png", width=160)
+    st.image(r"Kayfa_logo.png", width=160)
 
 # تعيين خريطة الألوان الثابتة للـ Attrition
 COLOR_MAP = {'Stayed': '#38bdf8', 'Left': '#f87171'}

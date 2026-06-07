@@ -242,11 +242,13 @@ st.markdown(kpi_html, unsafe_allow_html=True)
 
 # ====================== NAVIGATION ======================
 page2 = st.Page(
+    r"compensation.py",
     title="Role & Compensation",
     icon="💰"
 )
 
 page3 = st.Page(
+    r"profiles.py",
     title="Personal Profiles",
     icon="👤"
 )
